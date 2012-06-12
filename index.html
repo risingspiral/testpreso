@@ -1,0 +1,491 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>Testing Overview</title>
+
+		<meta name="description" content="An easy to use CSS 3D slideshow tool for quickly creating good looking HTML presentations.">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/print.css" type="text/css" media="print">
+
+		<link rel="stylesheet" href="lib/zenburn.css">
+		
+		<style>
+			.tight-spectrum  {
+				background-image: url("assets/images/tighter-spectrum.png");
+			}
+			.wider-spectrum {
+				background-image: url("assets/images/wider-spectrum.png");
+				-webkit-transition: background-image 2s ease;
+			}
+			.comparison {
+				text-align: left;
+			}
+			.comparison ul {
+				margin-left: 2em;
+			}
+			.comparison p {
+				margin-top: 1em;
+			}
+		</style>
+	</head>
+	
+	<body>
+		
+		<div class="reveal">
+
+			<!-- Used to fade in a background when a specific slide state is reached -->
+			<div class="state-background"></div>
+			
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Keeping code honest</h1>
+					<h3 class="inverted">Improving quality through automated testing</h3>
+				</section>
+			
+			<!-- <section>
+					<h2>Why do we get paid?</h2>
+					
+					<ul>
+						<li class="fragment">To write code?</li>
+						<li class="fragment">No.</li>
+						<li class="fragment">To write code that works.</li>
+					</ul>
+			 </section>
+			 -->	
+				<section>
+					<h2>Problem</h2>
+					
+					<ul>
+						<li>Ensuring code quality is expensive</li>
+						<li>As the app grows it doesn't get any cheaper</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Manual testing</h2>
+					
+					<ul>
+						<li>Takes a lot of time</li>
+						<li>Is rarely repeated</li>
+						<li>Often only tests success paths through the code</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Automated testing</h2>
+					
+					<ul>
+						<li>Make sure the code does what it says it does</li>
+						<li>Reduce the cost of testing the app</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Test-Driven Development (TDD)</h2>
+				
+					<ol>
+						<li>Write a test</li>
+						<li>Run the test</li>
+						<li>Watch it fail</li>
+						<li>Write code</li>
+						<li>Repeat steps 1-4 until test passes</li>
+					</ol>
+				</section>
+				
+				<section>
+					<h2>Advantages of TDD</h2>
+				
+					<ul>
+						<li>Design decisions emerge earlier (KISS / YAGNI)</li>
+						<li>Documentation that doesn't become stale</li>
+						<li>... and now you have a re-usable test</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Behavior-Driven Development (BDD)</h2>
+					
+					<ul>
+						<li>Natural evolution of TDD aligned with agile practices</li>
+						<li>Design tests that are in-line with the spec and not the file structure</li>
+						<li>Domain-expert readable format</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>TDD vs. BDD</h2>
+					
+					<ul>
+						<li>BDD builds on TDD</li>
+						<li>BDD emphasizes implementing <b>scenarios</b>, testing <b>features</b>, and verifying <b>specifications</b></li>
+						<li>BDD is inclined towards a more holistic view of the application</li>
+						<li>BDD is compatible with domain experts expectation of the application</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>BDD formats</h2>
+					
+					<p>Used by RSpec, Jasmine, etc...</p>
+					<pre><code contenteditable="true" style="font-size: 18px; margin-top: 20px;">
+describe("System object", function() {
+
+	it("does behavior", function() {...});
+	
+	it("does some other behavior", function() {...});
+	
+	describe("Sub-system object", function() {
+		it("does yet another behavior", function() {...});
+	});
+});
+					</code></pre>
+				</section>
+				
+				<section>
+					<h2>BDD formats</h2>
+					
+					<pre><code contenteditable="true" style="font-size: 18px; margin-top: 20px;">
+describe("Calculator", function() {
+
+	it("adds 2 and 3 together to get 5", function() {
+		var calc = new Calculator();
+		calc.setMode('arithmetic');
+		calc.press(2);
+		calc.press(3);
+		calc.press("=");
+		assert(calc.getDisplayedResult()).equals(5);
+	});
+	
+});
+					</code></pre>
+				</section>
+				
+				<section>
+					<h2>BDD formats</h2>
+					
+					<p>Gherkin: used by Cucumber, Behat, JBehave, etc...</p>
+					<p>Given...When...Then DSL</p>
+					<pre><code contenteditable="true" style="font-size: 18px; margin-top: 20px;">
+Feature: Calculator for math students
+	In order to get my degree
+	As a math student
+	I need a calculator
+	
+Scenario: Adding numbers together
+	Given I have a calculator
+	And the calculator is in "arithmetic" mode
+	When I press "2"
+	And I press "3"
+	And I press "="
+	Then I should get "5"
+					</code></pre>
+				</section>
+				
+				<section>
+					<h2>BDD formats</h2>
+					
+					<pre><code contenteditable="true" style="font-size: 18px; margin-top: 20px;">
+/**
+ * @Given /^I have a calculator$/
+ */
+public function iHaveACalculator() {
+	$this->calculator = new Calculator();
+}
+
+/**
+ * @Given /^the calculator is in "([^"]*)" mode$/
+ */
+public function theCalculatorIsInMode($mode) {
+	$this->calculator->setMode($mode);
+}
+
+/**
+ * @When /^I press "([^"]*)"$/
+ */
+public function iPress($keyPress) {
+	$this->calculator->press($keyPress);
+}
+
+/**
+ * @Then /^I should get "([^"]*)"$/
+ */
+public function iShouldGet($displayedValue) {
+	assertEquals($this->calculator->displayedValue(), $displayedValue);
+}
+					</code></pre>
+				</section>
+				
+				<section>
+					<h2>Continuous Integration</h2>
+					
+					<ul>
+						<li>Putting the automated in automated testing</li>
+						<li>Jenkins is our CI du jour, but there are others (Travis:CI, TeamCity, CruiseControl)</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>How do we go about this</h2>
+					
+					<ul>
+						<li>Two-front attack</li>
+						<li>Unit testing - minimal System Under Test (SUT)</li>
+						<li>Functional testing - focuses on integration of the wider stack</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Unit Testing</h2>
+					
+					<div class="comparison">
+						<p>Advantages</p>
+						
+						<ul>
+							<li>Extremely narrow, focused test</li>
+							<li>Quick to write</li>
+							<li>Quick to run</li>
+							<li>TDD friendly</li>
+						</ul>
+						
+						<p>Disadvantages</p>
+						
+						<ul>
+							<li>Does not catch integration errors</li>
+						</ul>
+					</div>
+				</section>
+				
+				<section>
+					<h2>Mocks / spies / fakes / stubs / doubles</h2>
+					
+					<ul>
+						<li>Replace external dependencies (e.g. APIs, DBs, File Systems, etc.)</li>
+						<li>Verify inputs to those external dependencies</li>
+						<li>Often return fake data to the application code to continue operation</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Functional Testing</h2>
+					<h3>aka integration testing aka acceptance testing</h3>
+					
+					<div class="comparison">
+						<p>Advantages</p>
+						
+						<ul>
+							<li>Closer to real world application</li>
+							<li>Opportunities for cross-team effort</li>
+							<li>Natural fit for BDD expressions</li>
+						</ul>
+						
+						<p>Disadvantages</p>
+						
+						<ul>
+							<li>More expensive to run</li>
+							<li>Identifying errors can be tricky</li>
+							<li>Generally created after development</li>
+							<li>Refactors can cause noise</li>
+						</ul>
+					</div>
+				</section>
+				
+				<section>
+				
+					<h2>Tests ain't free</h2>
+				
+					<ul>
+						<li>Tests ain't free... <span class="fragment">they cost $1.05</span></li>
+						<li class="fragment">And functional tests cost $10.05</li>
+					</ul>
+				
+				</section>
+				
+				<section>
+					<h2>Best Practices</h2>
+					
+					<p>General rule: As app code goes, so goes test code</p>
+					
+					<ul>
+						<li>DRY it out, keep it DRY</li>
+						<li>Include it in code and design reviews</li>
+						<li>Use expressive naming</li>
+						<li>Isolate tests from one another, no dependency</li>
+						<li>One test should have limited assertions</li>
+						<li>Test repeatable values (avoid random ones)</li>
+						<li>If you do test random values, record them</li>
+						<li>Mock external dependencies</li>
+						<li>Sniff test code:test ratio (1:2 is a sign of trouble. 1:3 something's wrong)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Best Practices cont.</h2>
+					
+					<p>General rule: Don't test the super obvious</p>
+					
+					<ul>
+						<li>Parse errors</li>
+						<li>Missing functions/methods</li>
+						<li>Trivial grammar</li>
+					</ul>
+					
+					<p>Focus testing efforts on business logic that affects the bottom line.</p>
+					
+				</section>
+				
+				<section>
+					<h2>Test Breakdown</h2>
+				
+					<div style="width: 900px; vertical-align: middle">
+						<div style="float: left; width: 300px; height: 300px; padding-top: 10%">Unit tests</div>
+						<div style="float: left; width: 300px; height: 300px" class="wider-spectrum"></div>
+						<div style="float: left; width: 300px; height: 300px; padding-top: 10%">Functional tests</div>
+					</div>
+					<div class="fragment" id="gradient-fragment"></div>
+				</section>
+				
+				<section>
+					<h2>Division of Labor</h2>
+					
+					<ul>
+						<li>Whenever possible, unit test application business logic</li>
+						<li>Save functional tests for smoke testing, complex regressions</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Current State</h2>
+					
+					<ul>
+						<li>Limited tests in Console and ui-fw v1</li>
+						<li>Dependency on DOM events to trigger app code</li>
+						<li>Dependency on lengthy DOM fixtures</li>
+						<li>Poor mocking interface for PHP</li>
+						<li>Separate directory structure for tests</li>
+						<li>Separate virtual host for running tests</li>
+						<li>No functional testing framework</li>
+						<li>... but still possible to write tests, particularly for the fw</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Path forward</h2>
+					
+					<ul>
+						<li>Creating an in-app test dashboard</li>
+						<li>Working with blackops to gather / compute metrics on app quality</li>
+						<li>V2 design / organization provides hooks into objects independent of DOM</li>
+						<li>Improved alternative for PHP mocking</li>
+						<li>Progress being made towards functional testing framework</li>
+						<li>Open office testing hours</li>
+						<li>Identify areas of key significance that impact $, focus there</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>Remaining challenges</h2>
+					
+					<ul>
+						<li>Remaining reliance on DOM and its events</li>
+						<li>Need to develop effective cross-browser testing strategy</li>
+						<li>General team adoption (identifying and eliminating pain points)</li>
+					</ul>
+				</section>
+				
+				<section>
+					<h2>The End</h2>
+					
+					<p>Questions / thoughts / concerns / ideas</p>
+				</section>
+				
+			</div>
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+			<div class="progress"><span></span></div>
+			
+		</div>
+
+		<!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
+		<script src="lib/highlight.js"></script>
+		<script src="lib/classList.js"></script>
+		
+		<script src="js/reveal.js"></script>
+		
+		<script>
+			// Parse the query string into a key/value object
+			var query = {};
+			location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+				query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+			} );
+
+			// Fires when a slide with data-state=customevent is activated
+			Reveal.addEventListener( 'customevent', function() {
+				alert( '"customevent" has fired' );
+			} );
+
+			// Fires each time a new slide is activated
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+			} );
+
+			Reveal.initialize({
+				// Display controls in the bottom right corner
+				controls: true,
+
+				// Display a presentation progress bar
+				progress: true,
+
+				// If true; each slide will be pushed to the browser history
+				history: true,
+
+				// Loops the presentation, defaults to false
+				loop: false,
+
+				// Flags if mouse wheel navigation should be enabled
+				mouseWheel: true,
+
+				// Apply a 3D roll to links on hover
+				rollingLinks: true,
+
+				// UI style
+				theme: query.theme || 'default', // default/neon
+
+				// Transition style
+				transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+			});
+
+			hljs.initHighlightingOnLoad();
+		</script>
+		
+					<script>
+					Reveal.addEventListener( 'fragmentshown', function(e) {
+						if (e.fragment.id === 'gradient-fragment') {
+							document.getElementsByClassName('wider-spectrum')[0].style.backgroundImage = 'url("assets/images/tighter-spectrum.png")';
+						} else {
+							document.getElementsByClassName('wider-spectrum')[0].style.backgroundImage = 'url("assets/images/wider-spectrum.png")';
+						}
+					});
+ 					</script>
+
+	</body>
+</html>
